@@ -1,18 +1,88 @@
-\documentclass[11pt, a4paper]{article}
+\documentclass[12pt, a4paper]{article}
 \usepackage[utf8]{inputenc}
 \usepackage[english, serbianc]{babel}
+\usepackage{graphicx}
 
-\title{Примена неуронских поља зрачења у рендеровању}
-\author{Коста Грујчић}
+\usepackage{geometry}
+\geometry{
+	a4paper,
+	total={166mm,253mm},
+	left=22mm,
+	top=22mm,
+}
+
+\usepackage{fancyhdr}
+\pagestyle{fancy}
 
 \begin{document}
-\maketitle
+\begin{titlepage}
+	\newcommand{\HRule}{\rule{\linewidth}{0.5mm}}
+	\center
+	
+	\textbf{\LARGE УНИВЕРЗИТЕТ У БЕОГРАДУ\\MАТЕМАТИЧКИ ФАКУЛТЕТ}
+	\begin{figure}[!ht]
+		\centering
+		\includegraphics[width=0.2\textwidth]{img/matf-logo.png}
+	\end{figure}\\[3cm]
+	\textbf{\Large МАСТЕР РАД}\\[0.3cm]
+	на катедри за \\[0.3cm]
+	\textbf{\Large Рачунарство и информатику}\\[.7cm] % Minor heading such as course title
+	на тему\\[0.7cm]
+	
+	\HRule \\[0.4cm]
+	{ \huge \bfseries Примена неуронских поља зрачења у рендеровању}\\[0.4cm] % Title of your document
+	\HRule \\[1.5cm]
+	
+	\begin{minipage}{0.4\textwidth}
+		\begin{center}
+			Коста Грујчић
+		\end{center}
+	\end{minipage}\\[5cm]
+	
+	{\large Београд, \today}\\[2.5cm]
+	\vfill
+\end{titlepage}
+\pagenumbering{roman}
 
-\begin{abstract}
-\end{abstract}
+% Defines mentor & date
+\newpage
+\thispagestyle{empty}
 
+\hspace{0pt}
+\vfill
+\noindent \textbf{Ментор}:\\
+проф. др Младен Николић\\Универзитет у Београду, Математички факултет
+\\[2cm]
+
+\noindent \textbf{Чланови комисије}:
+\\проф. др Младен Николић\\Универзитет у Београду, Математички факултет
+\\[0.25cm]
+\\проф. др Младен Николић\\Универзитет у Београду, Математички факултет
+\\[0.25cm]
+\\проф. др Младен Николић\\Универзитет у Београду, Математички факултет
+\\[2cm]
+
+\noindent \textbf{Датум одбране}: \today
+\hspace{0pt}
+\vfill
+
+\newpage
+\thispagestyle{empty}
+Посвета
+
+\newpage
+\thispagestyle{empty}
+\noindent \textbf{Наслов мастер рада}: Примена неуронских поља зрачења у рендеровању
+
+\noindent \textbf{Резиме}:
+
+\noindent \textbf{Кључне речи}: машинско учење, неуронска поља, рендеровање
+
+\newpage
 \tableofcontents
+\newpage
 
+\pagenumbering{arabic}
 \section{Увод}
 \section{Основни појмови рачунарске графике}
 \subsection{Светлост}

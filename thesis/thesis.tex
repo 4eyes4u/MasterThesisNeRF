@@ -1,18 +1,39 @@
-\documentclass[12pt, a4paper]{article}
+\documentclass[12pt, a4paper, twoside]{book}
 \usepackage[utf8]{inputenc}
 \usepackage[english, serbianc]{babel}
+\usepackage{lipsum}
 \usepackage{graphicx}
 
 \usepackage{geometry}
 \geometry{
 	a4paper,
-	total={166mm,253mm},
-	left=22mm,
-	top=22mm,
+	total={160mm,237mm},
+	left=30mm,
+	top=30mm,
+}
+
+\usepackage{hyperref}
+\usepackage{xcolor}
+\hypersetup{
+	colorlinks,
+	linkcolor={red!50!black},
+	citecolor={blue!50!black},
+	urlcolor={blue!80!black}
 }
 
 \usepackage{fancyhdr}
 \pagestyle{fancy}
+\fancyhead{}
+\fancyhead[RE]{\leftmark}
+\fancyhead[LO]{\rightmark}
+\fancyfoot{}
+\fancyhead[LE, RO]{\thepage}
+
+\usepackage{amsmath}
+\usepackage{amsthm}
+\numberwithin{equation}{section}
+\newtheorem{theorem}{Теорема}
+\newtheorem{definition}{Дефиниција}
 
 \begin{document}
 \begin{titlepage}
@@ -78,21 +99,49 @@
 
 \noindent \textbf{Кључне речи}: машинско учење, неуронска поља, рендеровање
 
-\newpage
+\listoffigures
+\listoftables
 \tableofcontents
-\newpage
 
 \pagenumbering{arabic}
-\section{Увод}
-\section{Основни појмови рачунарске графике}
-\subsection{Светлост}
-\subsection{Камера}
-\subsection{Рендеровање}
-\section{Основни појмови машинског учења}
-\section{Неуронска поља зрачења}
-\subsection{NeRF}
-\section{Скупови података}
-\section{Експерименти}
-\section{Закључак}
+\chapter{Увод}
+\lipsum[1-20]
+
+\chapter{Основни појмови рачунарске графике}
+\section{Светлост}
+\section{Камера}
+	\begin{theorem}
+		Неки текст теореме.
+	\end{theorem}
+	\begin{proof}
+		Доказ теореме.
+	\end{proof}
+	\begin{definition}
+		Неки текст дефиниције.
+	\end{definition}
+	\begin{equation}
+		\int_{-\infty}^{\infty}f(t)dt
+	\end{equation}
+\section{Рендеровање}
+
+\chapter{Основни појмови машинског учења}
+\lipsum[1-20]
+
+\chapter{Неуронска поља зрачења}
+\section{NeRF}
+\lipsum[1-10]
+\section{Mip-NeRF}
+\lipsum{1-10}
+\section{Instant-NGP}
+\lipsum[1-10]
+
+\chapter{Скупови података}
+\lipsum[1-20]
+
+\chapter{Експерименти}
+\section{Време обучавања}
+\section{Квалитет резултата}
+
+\chapter{Закључак}
 
 \end{document}

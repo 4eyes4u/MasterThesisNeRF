@@ -3,6 +3,9 @@
 \usepackage[english, serbianc]{babel}
 \usepackage{lipsum}
 \usepackage{graphicx}
+\usepackage{multicol}
+\usepackage{booktabs}
+\usepackage{float}
 
 \usepackage{geometry}
 \geometry{
@@ -111,7 +114,72 @@
 \lipsum[1-20]
 
 \chapter{Основни појмови рачунарске графике}
-\section{Светлост}
+\section{Светлост и боја}
+Светлост представља електромагнетно зрачење чија је таласна дужина у сегменту од око 350 до
+700 nm, које побуђује визуелни систем човека. То значи да људи \textit{не виде} светлост
+осталих таласних дужина, тако да ћемо убудуће под видљивим спектром светлости мислити управо
+на овај, видљив човеку.
+
+%Светлост коју наш визуелни систем региструје мора доћи од неког извора. Тако и разликујемо
+%примарне и секундарне изворе светлости, односно изворе који производе зрачење и оне који их
+%само рефлектују. Када је реч о рефлексији светлости, она може бити спекуларна када се светлост
+%рефлектује дуж тачно једног правца, или дифузна када се расипа.
+
+Потребно је увести физичке величине којима се могу квантификовати основна физичка својства
+светлости. Прво ћемо дефинисати радиометријске величине, а онда одговарајуће фотометријске.
+
+\begin{definition}
+	Фотон је квант електромагнетног зрачења. Енергија фотона је:
+	$$E=\frac{hc}{\lambda},$$ где је $h$ Планкова константа, $c$ брзина светлотси, а $\lambda$ 
+	таласна дужина фотона.
+\end{definition}
+
+\begin{definition}
+	Укупна енергија зрачења извора зрачења је: $$Q_e = \int_{\Omega} E d\omega \left[J\right].$$
+\end{definition}
+
+\begin{definition}
+	Флукс зрачења је укупна енергија зрачења по једини времена:
+	$$\Phi = \frac{\partial Q_e}{\partial t} \left[W\right].$$
+\end{definition}
+
+\begin{definition}
+	Озраченост је укупан флукс зрачења по једини површине:
+	$$E = \frac{\partial \Phi}{\partial A} \left[\frac{W}{m^2}\right].$$
+\end{definition}
+
+\begin{definition}
+	Јачина зрачења је укупан флукс зрачења по јединичном просторном углу:
+	$$I = \frac{\partial \Phi}{\partial \Omega} \left[\frac{W}{sr}\right].$$
+\end{definition}
+
+\begin{definition}
+	Зрачење је је укупан флукс зрачења по једини површине и јединичном просторном углу:
+	$$I = \frac{\partial^2 \Phi}{\partial \Omega \partial A} \left[\frac{W}{sr \cdot m^2}\right].$$
+\end{definition}
+
+Фотометријске величине су аналогони радиометријских и даћемо их у поређењу са
+радиометријским величинама табелом \ref{table-radio-vs-photo}.
+
+\begin{table}[h]
+	\centering
+	\begin{tabular}{|l|l|}
+		\hline
+		{\textbf{Радиометријске величине}} & {\textbf{Фотометријске величине}}\\
+		\hline
+		{Флукс зрачења $\left[W\right]$} & {Светлосни флукс $\left[lm\right]$} \\ 
+		\hline
+		{Озраченост $\left[\frac{W}{m^2}\right]$} & {Осветљеност $\left[lx\right]$} \\
+		\hline
+		{Јачина зрачења $	\left[\frac{W}{sr}\right]$} & {Јачина светлости $\left[cd\right]$} \\
+		\hline
+		{Зрачење $\left[\frac{W}{sr \cdot m^2}\right]$} & {Сјајност $\left[\frac{cd}{m^2}\right]$}\\
+		\hline
+	\end{tabular}
+	\caption{Поређење радиометријских и фотометријских величина}
+	\label{table-radio-vs-photo}
+\end{table}
+
 \section{Камера}
 	\begin{theorem}
 		Неки текст теореме.

@@ -135,50 +135,70 @@
 \end{definition}
 
 \begin{definition}
-	Укупна енергија зрачења извора зрачења је: $$Q_e = \int_{\Omega} E d\omega \left[J\right].$$
+	Укупна енергија зрачења извора зрачења је: $$Q_e = \int_{S^2} E d\Omega \left[J\right].$$
 \end{definition}
 
 \begin{definition}
 	Флукс зрачења је укупна енергија зрачења по једини времена:
-	$$\Phi = \frac{\partial Q_e}{\partial t} \left[W\right].$$
+	$$\Phi_e = \frac{\partial Q_e}{\partial t} \left[W\right].$$
 \end{definition}
 
 \begin{definition}
 	Озраченост је укупан флукс зрачења по једини површине:
-	$$E = \frac{\partial \Phi}{\partial A} \left[\frac{W}{m^2}\right].$$
+	$$E_e = \frac{\partial \Phi_e}{\partial A} \left[\frac{W}{m^2}\right].$$
 \end{definition}
 
 \begin{definition}
 	Јачина зрачења је укупан флукс зрачења по јединичном просторном углу:
-	$$I = \frac{\partial \Phi}{\partial \Omega} \left[\frac{W}{sr}\right].$$
+	$$I_{e, \Omega} = \frac{\partial \Phi_e}{\partial \Omega} \left[\frac{W}{sr}\right].$$
 \end{definition}
 
 \begin{definition}
 	Зрачење је је укупан флукс зрачења по једини површине и јединичном просторном углу:
-	$$I = \frac{\partial^2 \Phi}{\partial \Omega \partial A} \left[\frac{W}{sr \cdot m^2}\right].$$
+	$$L_{e, \Omega} = \frac{\partial^2 \Phi_e}{\partial \Omega \partial A} \left[\frac{W}{sr \cdot m^2}\right].$$
 \end{definition}
 
-Фотометријске величине су аналогони радиометријских и даћемо их у поређењу са
-радиометријским величинама табелом \ref{table-radio-vs-photo}.
+Спектралне величине се дефинишу у односу на таласну дужину. На пример, спектрално зрачење
+је $L_{e, \Omega, \lambda} = \frac{\partial L_{e, \Omega}}{\partial \lambda}$.
+Аналогно и за остале.
 
-\begin{table}[h]
-	\centering
-	\begin{tabular}{|l|l|}
-		\hline
-		{\textbf{Радиометријске величине}} & {\textbf{Фотометријске величине}}\\
-		\hline
-		{Флукс зрачења $\left[W\right]$} & {Светлосни флукс $\left[lm\right]$} \\ 
-		\hline
-		{Озраченост $\left[\frac{W}{m^2}\right]$} & {Осветљеност $\left[lx\right]$} \\
-		\hline
-		{Јачина зрачења $	\left[\frac{W}{sr}\right]$} & {Јачина светлости $\left[cd\right]$} \\
-		\hline
-		{Зрачење $\left[\frac{W}{sr \cdot m^2}\right]$} & {Сјајност $\left[\frac{cd}{m^2}\right]$}\\
-		\hline
-	\end{tabular}
-	\caption{Поређење радиометријских и фотометријских величина}
-	\label{table-radio-vs-photo}
-\end{table}
+Након дефинисања мноштва физичких величина, коначно долазимо и до фотометријских, или како се
+још називају и \textit{визуелне}. Кључна разлика у односу на радиометријске, или како се још
+називају и \textit{енергетске}, је што се у овом случају у обзир узима и спектрална
+осетљивост посматрача. То одговара интуитивном поимању светлости - човек светлост разликује на
+основу боје, што је у директној коресподенцији са таласном дужином.
+
+У основи спектралне зависности посматрача је \textit{функција релативне светлосне осетљивости} $V$.
+Помоћу ове функције изражавамо просечну осетљивост човека на светлост одређене таласне дужине.
+Просечна је у смислу да може варирати у популацији, али представља врло добру апроксимацију
+у општем случају, поготово имајући у виду да је стандардизована од стране Међународног комитета
+за осветљење.
+
+\begin{definition}
+	Светлосни флукс је $$\Phi_v = K\int_{0}^{\infty}\Phi_{e, \lambda} V(\lambda)d\lambda \left[lm\right].$$
+\end{definition}
+
+%Фотометријске величине су аналогони радиометријских и даћемо их у поређењу са
+%радиометријским величинама табелом \ref{table-radio-vs-photo}.
+
+%\begin{table}[h]
+%	\centering
+%	\begin{tabular}{|l|l|}
+%		\hline
+%		{\textbf{Радиометријске величине}} & {\textbf{Фотометријске величине}}\\
+%		\hline
+%		{Флукс зрачења $\left[W\right]$} & {Светлосни флукс $\left[lm\right]$} \\ 
+%		\hline
+%		{Озраченост $\left[\frac{W}{m^2}\right]$} & {Осветљеност $\left[lx\right]$} \\
+%		\hline
+%		{Јачина зрачења $	\left[\frac{W}{sr}\right]$} & {Јачина светлости $\left[cd\right]$} \\
+%		\hline
+%		{Зрачење $\left[\frac{W}{sr \cdot m^2}\right]$} & {Сјајност $\left[\frac{cd}{m^2}\right]$}\\
+%		\hline
+%	\end{tabular}
+%	\caption{Поређење радиометријских и фотометријских величина}
+%	\label{table-radio-vs-photo}
+%\end{table}
 
 \section{Камера}
 	\begin{theorem}

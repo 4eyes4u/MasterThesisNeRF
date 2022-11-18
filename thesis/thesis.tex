@@ -6,6 +6,7 @@
 \usepackage{multicol}
 \usepackage{booktabs}
 \usepackage{float}
+\usepackage{tikz}
 
 \usepackage{geometry}
 \geometry{
@@ -175,7 +176,8 @@
 за осветљење.
 
 \begin{definition}
-	Светлосни флукс је $$\Phi_v = K\int_{0}^{\infty}\Phi_{e, \lambda} V(\lambda)d\lambda \left[lm\right].$$
+	Светлосни флукс је
+	$$\Phi_v = K\int_{0}^{\infty}\Phi_{e, \lambda} V(\lambda)d\lambda \left[\mathrm{lm}\right].$$
 \end{definition}
 
 %Фотометријске величине су аналогони радиометријских и даћемо их у поређењу са
@@ -201,36 +203,36 @@
 %\end{table}
 
 \section{Камера}
-	Можемо сматрати да нам је појам камере познат из стварног света. У овој глави
-	ћемо строго дефинисати камеру и дати један од многобројних начина њеног
-	моделовања у домену рачунарске графике.
-	
-	\begin{definition}
-		Камера је пресликавање из $\mathbb{R}^3$ у $\mathbb{R}^2$.
-	\end{definition}
+Можемо сматрати да нам је појам камере познат из стварног света. У овој глави
+ћемо строго дефинисати камеру и дати један од многобројних начина њеног
+моделовања у домену рачунарске графике.
 
-	У питању је врло општа, готово бескорисна дефиниција. Међутим, ако размислимо
-	о томе да се стваран свет врло добро може представити као простор димензије $3$,
-	а да се фотографија може схватити као раван, можемо увидети да је у питању заиста
-	исправна формулација. Оно што овом дефиницијом није обухваћено јесте како се тачно
-	од света око нас долази до слике. Зато има смисла говорити о моделима камере као
-	различитим парадигмама изведбе поменутог пресликавања. У овом раду ће највише
-	бити коришћен тачкасти модел камере тако да ћемо у наставку поглавља дати његову
-	прецизну дефиницију.
+\begin{definition}
+	Камера је пресликавање из $\mathbb{R}^3$ у $\mathbb{R}^2$.
+\end{definition}
+
+У питању је врло општа, готово бескорисна дефиниција. Међутим, ако размислимо
+о томе да се стваран свет врло добро може представити као простор димензије $3$,
+а да се фотографија може схватити као раван, можемо увидети да је у питању заиста
+исправна формулација. Оно што овом дефиницијом није обухваћено јесте како се тачно
+од света око нас долази до слике. Зато има смисла говорити о моделима камере као
+различитим парадигмама изведбе поменутог пресликавања. У овом раду ће највише
+бити коришћен тачкасти модел камере тако да ћемо у наставку поглавља дати његову
+прецизну дефиницију.
 	
 	\subsection{Тачкасти модел камере}
 	Посматрајмо канонски Еуклидски простор димензије $3$ и раван $z=f$ коју ћемо звати
-	\textit{раван слике}. У овом моделу камере се произвољна тачка $\mathbf{x_w}=(x, y, z)$ из простора
-	пресликава у тачку пресека равни слике и праве која спаја $\mathbf{x_w}$ и центар камере, који ћемо
-	за сад поставити у координатни почетак.	Другим речима, у питању је централна пројекција са центром у
-	координатном почетку. Тривијалном применом сличности троуглова долазимо до
+	\textbf{\textit{раван слике}}. У овом моделу камере се произвољна тачка $\mathbf{x_w}=(x, y, z)$ из простора
+	пресликава у тачку $\mathbf{x_p}=(u,v)$ која је тачка пресека равни слике и праве која спаја $\mathbf{x_w}$
+	и центар камере $\mathbf{c}$, који ћемо за сад поставити у координатни почетак.	Другим речима, у питању је централна
+	пројекција са центром у координатном почетку. Тривијалном применом сличности троуглова долазимо до
 	
 	\begin{equation}
 		(x, y, z) \mapsto (fx/z, fy/z).
 	\end{equation}
 
-	Права која пролази кроз центар камере и нормална је на раван слике називамо \textit{главном осом},
-	а тачка у којој се главна оса и раван слике секу називамо \textit{главном тачком}.
+	Права која пролази кроз центар камере и нормална је на раван слике називамо \textbf{\textit{главном осом}},
+	а тачка у којој се главна оса и раван слике секу називамо \textbf{\textit{главном тачком}}.
 	
 	Приметимо још једну особину централног пројектовања - све тачке праве која пролази кроз центар
 	камере се пројектују у исту тачку равни слике. Зато ћемо увести хомогене координате. Отуда
@@ -248,14 +250,13 @@
 		\begin{bmatrix}
 			fx \\
 			fy \\
-			z \\
-			1
+			z
 		\end{bmatrix}
 		=
 		\begin{bmatrix}
-			f && 0 && 0 \\
-			0 && f && 0 \\
-			0 && 0 && 1
+			f && 0 && 0 && 0 \\
+			0 && f && 0 && 0 \\
+			0 && 0 && 1 && 0
 		\end{bmatrix}
 		\begin{bmatrix}
 			x \\
@@ -270,14 +271,12 @@
 	\begin{equation}
 		K
 		\begin{bmatrix}
-			R && t \\
-			\mathbf{0} && 1
+			R && t
 		\end{bmatrix},
 		\label{eqn-krt}
 	\end{equation}
 	где je $K \in M_{3, 4}(\mathbb{R})$, $R \in M_{3, 3}(\mathbb{R})$ и $t \in M_{3, 1}(\mathbb{R})$.
-	Како се у поменутој блок матрици последњи ред подразумева, убудуће неће бити писан.
-	Дијагонала матрица из \ref{eqn-px} је уствари матрица $K$ из овако измењеног пресликавања.
+	Уклањајући последњу колону из \ref{eqn-px} добијамо матрицу $K$ из овако измењеног пресликавања.
 	
 	Уколико уопштимо положај главне тачке и њене координате означимо са $(p_x, p_y)$, матрица $K$
 	поприма облик
@@ -292,26 +291,107 @@
 
 	Коначно, можемо уопштити и положај центра камере. Тада уочавамо два координатна система -
 	онај с почетка, канонски, у ком нам је лако да баратамо и други, са центром камере као
-	координатним почетком. Није тешко увидети да се кретањем (ротацијом и транслацијом) њихови
-	репери могу поистоветити. На тај начин употпуњујемо пресликавање $P$.
+	координатним почетком. Није тешко увидети да се кретањем (ротацијом и транслацијом) репер камере
+	може довести до канонског. На тај начин употпуњујемо пресликавање $P$. На слици \ref{fig-pinhole} 
+	је дата интепретација овог пресликавања.
+	
+	\begin{figure}[H]
+		\begin{center}
+		\begin{tikzpicture}
+			\usetikzlibrary{calc}
+			% Picture's vectors definition
+			\def\xOne{1}
+			\def\xTwo{0.5}
+			\def\yOne{0}
+			\def\yTwo{-1.3}
+			\def\zOne{-1}
+			\def\zTwo{0.5}
+			
+			% CAMERA COORDINATE SYSTEM
+			%\draw[thick,->] (0,0) -- (\xOne,\xTwo) node[anchor=north]{$x$};
+			%\draw[thick,->] (0,0) -- (\yOne,\yTwo) node[anchor=west]{$y$};
+			%\draw[thick,->] (0,0) -- (\zOne,\zTwo) node[anchor=north,yshift=-2pt,xshift=3pt]{$z$};
+			\draw[very thick,->] (-\zOne/2,-\zTwo/2) -- (-\zOne/2+\xOne,-\zTwo/2+\xTwo) node[anchor=north west, xshift=-3pt,font=\footnotesize]{$\mathbf{e_x}$};
+			\draw[very thick,->] (-\zOne/2,-\zTwo/2) -- (-\zOne/2+\yOne,-\zTwo/2+\yTwo) node[anchor=west,font=\footnotesize]{$\mathbf{e_y}$};
+			\draw[very thick,->] (-\zOne/2,-\zTwo/2) -- (\zOne/2,\zTwo/2) node[anchor=north,yshift=-2pt,xshift=3pt,font=\footnotesize]{$\mathbf{e_z}$};
+			\draw (-\zOne/2,-\zTwo/2) node[anchor=north west,font=\footnotesize]{$\mathbf{c}$};
+			
+			% CAMERA AXIS ELONGATION
+			\draw[very thin,solid] (-\zOne/2-2*\xOne,-\zTwo/2-2*\xTwo) -- (-\zOne/2+2*\xOne,-\zTwo/2+2*\xTwo); % x elongation
+			\draw[very thin,solid] (3*\zOne,3*\zTwo) -- (6*\zOne,6*\zTwo); % optical axis behind projection plane
+			
+			% REFERENCE LINES
+			%\draw[thin,dashed] (1.4*\xOne-\zOne/2,1.4*\xTwo-\zTwo/2) -- (6*\zOne+1.4*\xOne,6*\zTwo+1.4*\xTwo); % object x position
+			\draw[very thin,solid] (6*\zOne-2*\xOne,6*\zTwo-2*\xTwo) -- (6*\zOne+2*\xOne,6*\zTwo+2*\xTwo) node[anchor=west]{}; %object z position
+			
+			% WORLD OBJECT
+			\draw[line width=1pt,cyan,line cap=round] (6*\zOne+1.4*\xOne,6*\zTwo+1.4*\xTwo) -- (6*\zOne+1.4*\xOne,6*\zTwo+1.4*\xTwo+1.1) node[anchor=south,font=\footnotesize]{$\mathbf{x}_w=(x,y,z)$};
+			\node[circle,inner sep=0pt,minimum size=0.2cm,fill=cyan] (object) at (6*\zOne+1.4*\xOne,6*\zTwo+1.4*\xTwo+1.1) {};
+			
+			% PROJECTION LINE BEHIND PROJECTION PLANE
+			\draw[thick,solid,red] (3*\zOne+0.69*\xOne,3*\zTwo+0.7*\xTwo+0.69) -- (6*\zOne+1.4*\xOne,6*\zTwo+1.4*\xTwo+1.1);
+			
+			%% PROJECTION PLANE
+			\filldraw[fill=gray!20,draw=gray!70,opacity=0.8] (3*\zOne-1.5*\xOne-1.5*\yOne,3*\zTwo-1.5*\xTwo-1.5*\yTwo) -- (3*\zOne+1.5*\xOne-1.5*\yOne,3*\zTwo+1.5*\xTwo-1.5*\yTwo) -- (3*\zOne+1.5*\xOne+1.5*\yOne,3*\zTwo+1.5*\xTwo+1.5*\yTwo) -- (3*\zOne-1.5*\xOne+1.5*\yOne,3*\zTwo-1.5*\xTwo+1.5*\yTwo) -- (3*\zOne-1.5*\xOne-1.5*\yOne,3*\zTwo-1.5*\xTwo-1.5*\yTwo);
+			
+			% PLOJECTION PLANE COORDINATE SYSTEM u,v
+			\draw[->,thick,green!70!black,dashed] (3*\zOne-1.5*\xOne-1.5*\yOne,3*\zTwo-1.5*\xTwo-1.5*\yTwo) -- (3*\zOne+2*\xOne-1.5*\yOne,3*\zTwo+2*\xTwo-1.5*\yTwo)
+			node[anchor=north west, xshift=-3pt,font=\footnotesize]{$u$};
+			\draw[->,thick,green!70!black,dashed] (3*\zOne-1.5*\xOne-1.5*\yOne,3*\zTwo-1.5*\xTwo-1.5*\yTwo) -- (3*\zOne-1.5*\xOne-1.5*\yOne,3*\zTwo-1.5*\xTwo+2*\yTwo)
+			node[anchor=west,font=\footnotesize]{$v$};
+			
+			% PROJECTION PLANE COORDINATE SYSTEM x,y
+			\draw[->,thick,gray,dashed] (3*\zOne-2*\xOne,3*\zTwo-2*\xTwo) -- (3*\zOne+2*\xOne,3*\zTwo+2*\xTwo)
+			node[anchor=north west, xshift=-3pt,font=\footnotesize]{$x$};
+			\draw[->,thick,gray,dashed] (3*\zOne-2*\yOne,3*\zTwo-2*\yTwo) -- (3*\zOne+2*\yOne,3*\zTwo+2*\yTwo)
+			node[anchor=west,font=\footnotesize]{$y$};
+			
+			% PROJECTION  OBJECT
+			\draw[line width=1pt,cyan,line cap=round] (3*\zOne+0.69*\xOne,3*\zTwo+0.69*\xTwo) -- (3*\zOne+0.69*\xOne,3*\zTwo+0.69*\xTwo+0.69);
+			\node[circle,inner sep=0pt,minimum size=0.1cm,fill=cyan] (object) at (3*\zOne+0.69*\xOne,3*\zTwo+0.7*\xTwo+0.69) {};
+			
+			% PIXEL OBJECT
+			\filldraw[red,opacity=0.6] (3*\zOne+6*0.105*\xOne,3*\zTwo+0.75+6*0.105*\xTwo) -- ++(0.105*\xOne,0.105*\xTwo) -- ++(0.105*\yOne,0.105*\yTwo) -- ++(-0.105*\xOne,-0.105*\xTwo) -- ++(-0.105*\yOne,-0.105*\yTwo);
+			
+			% PROJECTION LINE IN FRONT OF PROJECTION PLANE
+			\draw[thick,solid,red] (-\zOne/2,-\zTwo/2) -- (3*\zOne+0.69*\xOne,3*\zTwo+0.7*\xTwo+0.69);
+			
+			% OPTICAL AXIS IN FRONT OF PROJECTION PLANE
+			\draw[thin,solid] (0,0) -- (3*\zOne,3*\zTwo);
+			
+			% ANNOTATIONS
+			% z = f
+			\draw (3*\zOne-1*\xOne+1.3*\yOne,3*\zTwo-1*\xTwo+1.3*\yTwo) node[gray!70,rotate=28,font=\scriptsize] {$z=f$};
+			%		% bar(u)
+			%		\draw[to-to, green!70!black] (3*\zOne+0.13*\xOne+0.08*\yOne,3*\zTwo+0.13*\xTwo+0.08*\yTwo) -- (3*\zOne+0.7*\xOne+0.08*\yOne,3*\zTwo+0.7*\xTwo+0.08*\yTwo) node[midway,anchor=north west,xshift=-2pt,yshift=2pt,font=\scriptsize] {$ \bar{u} $};
+			%		% bar(v)
+			%		\draw[to-to, green!70!black] (3*\zOne-0.1*\xOne-0.04*\yOne,3*\zTwo-0.1*\xTwo-0.04*\yTwo) -- (3*\zOne-0.1*\xOne,3*\zTwo-0.1*\xTwo+0.75) node[midway,anchor=east,xshift=2pt,font=\scriptsize] {$ \bar{v} $};
+			% (u,v)
+			\node[green!70!black,anchor=west,font=\scriptsize] at (3*\zOne+0.69*\xOne-0.1,3*\zTwo+0.7*\xTwo+0.89) {$\mathbf{x_p}=(u,v)$};
+			% principal point
+			\draw[very thin] (3*\zOne-0.02*\xOne+0.02*\yOne,3*\zTwo-0.02*\xTwo+0.02*\yTwo) .. controls (3*\zOne-0.1*\xOne+0.3*\yOne,3*\zTwo-0.1*\xTwo+0.3*\yTwo) and (3*\zOne-0.3*\xOne+0.1*\yOne,3*\zTwo-0.3*\xTwo+0.1*\yTwo) ..  (3*\zOne-0.6*\xOne+0.4*\yOne,3*\zTwo-0.6*\xTwo+0.4*\yTwo) node[anchor=north,align=center,font=\scriptsize] {главна тачка};
+			
+			% optical axis
+			\draw[very thin] (5.5*\zOne-0.02*\xOne+0.02*\yOne,5.5*\zTwo-0.02*\xOne+0.02*\yOne) .. controls (5.5*\zOne-0.1*\xOne+0.3*\yOne,5.5*\zTwo-0.1*\xTwo+0.3*\yTwo) and (5.5*\zOne-0.3*\xOne+0.1*\yOne,5.5*\zTwo-0.3*\xTwo+0.1*\yTwo) ..  (5.5*\zOne-0.6*\xOne+0.4*\yOne,5.5*\zTwo-0.6*\xTwo+0.4*\yTwo) node[anchor=north,align=center,font=\scriptsize] {главна оса};
+		\end{tikzpicture}
+		\end{center}
+		\caption{Интерпретација тачкастог модела камере}
+		\label{fig-pinhole}
+	\end{figure}
 	
 	Постоји укупно $9$ слободних параметара - по $3$ за сваку од матрица $K$, $R$ и $t$.
-	Матрица $K$ се назива \textit{калибрациона матрица}, а њене вредности \textit{унутрашњим параметрима}
-	камере. Вредности матрице $\begin{bmatrix}R && t\end{bmatrix}$ се називају \textit{спољашњим параметрима}
+	Матрица $K$ се назива \textbf{\textit{матрица калибрације}}, а њене вредности \textbf{\textit{унутрашњим параметрима}}
+	камере. Вредности матрице $\begin{bmatrix}R && t\end{bmatrix}$ се називају \textbf{\textit{спољашњим параметрима}}
 	камере.
+	
+	Поменимо још једну терминолошку конвенцију. Координатни систем из којег вршимо пројекцију се 
+	назива и \textbf{\textit{светским координатним системом}}, а координатни систем индукован положајем
+	камере \textbf{\textit{координатни систем камере}}. \textbf{\textit{Координатни систем слике}} је
+	онај везан за раван слике.
 
-	\begin{theorem}
-		Неки текст теореме.
-	\end{theorem}
-	\begin{proof}
-		Доказ теореме.
-	\end{proof}
-	\begin{definition}
-		Неки текст дефиниције.
-	\end{definition}
-	\begin{equation}
-		\int_{-\infty}^{\infty}f(t)dt
-	\end{equation}
+	Корисно је дати додатни коментар у вези са нулом у првом реду матрице калибрације. У питању је коецифијент
+	смицања којим је могуће уопштити раван слике -- правоугаоник постаје паралелограм.
+
 \section{Рендеровање}
 
 \chapter{Основни појмови машинског учења}

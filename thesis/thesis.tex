@@ -136,27 +136,27 @@
 \end{definition}
 
 \begin{definition}
-	Укупна енергија зрачења извора зрачења је: $$Q_e = \int_{S^2} E d\Omega \left[J\right].$$
+	Укупна енергија зрачења извора зрачења је: $$Q_e = \int_{S^2} E d\Omega \left[\mathrm{J}\right].$$
 \end{definition}
 
 \begin{definition}
 	Флукс зрачења је укупна енергија зрачења по једини времена:
-	$$\Phi_e = \frac{\partial Q_e}{\partial t} \left[W\right].$$
+	$$\Phi_e = \frac{\partial Q_e}{\partial t} \left[\mathrm{W}\right].$$
 \end{definition}
 
 \begin{definition}
 	Озраченост је укупан флукс зрачења по једини површине:
-	$$E_e = \frac{\partial \Phi_e}{\partial A} \left[\frac{W}{m^2}\right].$$
+	$$E_e = \frac{\partial \Phi_e}{\partial A} \left[\mathrm{\frac{W}{m^2}}\right].$$
 \end{definition}
 
 \begin{definition}
 	Јачина зрачења је укупан флукс зрачења по јединичном просторном углу:
-	$$I_{e, \Omega} = \frac{\partial \Phi_e}{\partial \Omega} \left[\frac{W}{sr}\right].$$
+	$$I_{e, \Omega} = \frac{\partial \Phi_e}{\partial \Omega} \left[\mathrm{\frac{W}{sr}}\right].$$
 \end{definition}
 
 \begin{definition}
 	Зрачење је је укупан флукс зрачења по једини површине и јединичном просторном углу:
-	$$L_{e, \Omega} = \frac{\partial^2 \Phi_e}{\partial \Omega \partial A} \left[\frac{W}{sr \cdot m^2}\right].$$
+	$$L_{e, \Omega} = \frac{\partial^2 \Phi_e}{\partial \Omega \partial A} \left[\mathrm{\frac{W}{sr \cdot m^2}}\right].$$
 \end{definition}
 
 Спектралне величине се дефинишу у односу на таласну дужину. На пример, спектрално зрачење
@@ -169,7 +169,7 @@
 осетљивост посматрача. То одговара интуитивном поимању светлости - човек светлост разликује на
 основу боје, што је у директној коресподенцији са таласном дужином.
 
-У основи спектралне зависности посматрача је \textit{функција релативне светлосне осетљивости} $V$.
+У основи спектралне зависности посматрача је \textbf{\textit{функција релативне светлосне осетљивости}} $V$.
 Помоћу ове функције изражавамо просечну осетљивост човека на светлост одређене таласне дужине.
 Просечна је у смислу да може варирати у популацији, али представља врло добру апроксимацију
 у општем случају, поготово имајући у виду да је стандардизована од стране Међународног комитета
@@ -179,6 +179,26 @@
 	Светлосни флукс је
 	$$\Phi_v = K\int_{0}^{\infty}\Phi_{e, \lambda} V(\lambda)d\lambda \left[\mathrm{lm}\right].$$
 \end{definition}
+
+\begin{definition}
+	Јачина светлости је укупна снага коју емитује извор светлости у одређеном смеру по јединичном
+	просторном углу:
+	$$I_v = K \int_{0}^{\infty}I_{e, \lambda}V(\lambda)d\lambda \left[\mathrm{cd}\right].$$
+\end{definition}
+
+\begin{definition}
+	Осветљеност је укупан светлосни флукс на некој површини:
+	$$E_v = K\int_{0}^{\infty}I_{e, \lambda}E_{e, \lambda}V(\lambda)d\lambda \left[\mathrm{lx}\right].$$
+\end{definition}
+
+\begin{definition}
+	Сјајност је укупан светлоснi флукс који напушта, пролази или пада на површину по јединичном просторном
+	углу и по ортогоналној пројекцији јединичне површине:
+	$$L_v = \frac{\partial^2\Phi_v}{\partial\Omega\partial A \cos\theta} \left[\mathrm{\frac{cd}{m^2}}\right].$$
+\end{definition}
+
+Сјајност је једина фотометријска величина коју човек непосредно опажа. Она представља мерило за субјективни утисак
+о мањој или већој сјајности светлеће или осветљене површине.
 
 %Фотометријске величине су аналогони радиометријских и даћемо их у поређењу са
 %радиометријским величинама табелом \ref{table-radio-vs-photo}.

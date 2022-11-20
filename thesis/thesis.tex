@@ -564,12 +564,12 @@ $\exp(w_2x_i^{w_1})$. Иако је проблем постављен као в�
 				\node[font=\tiny] at (0.99, 0.54) {2};
 				\node[font=\tiny] at (0.99, 0.38) {2};
 				\node[font=\tiny] at (0.99, 0.25) {2};
-				\node[cyan,font=\tiny] at (0.775, 0.67) {Зрак 1};
+				\node[blue,font=\tiny] at (0.775, 0.67) {Зрак 1};
 				\node[green,font=\tiny] at (0.775, 0.38) {Зрак 2};
 				\node[font=\tiny] at (0.775, 0.18) {Растојање};
 				\node[font=\scriptsize] at (0.957, 0.605) {GT};
 				\node[font=\scriptsize] at (0.957, 0.32) {GT};
-				\node[cyan,font=\tiny] at (0.595, 0.695) {Зрак 1};
+				\node[blue,font=\tiny] at (0.595, 0.695) {Зрак 1};
 				\node[green,font=\tiny] at (0.445, 0.61) {Зрак 2};
 				\node[font=\small] at (0.362, 0.63) {$f_\Theta$};
 			\end{scope}
@@ -577,6 +577,62 @@ $\exp(w_2x_i^{w_1})$. Иако је проблем постављен као в�
 	\end{center}
 	\caption{Илустрација NeRF модела}
 	\label{fig-nerf-pipeline}
+\end{figure}
+
+\begin{figure}[H]
+	\begin{center}
+		\begin{tikzpicture}
+			\node[anchor=south west,inner sep=0] (image) at (0, 0) {\includegraphics[width=\textwidth]{img/instantngp-pipeline.pdf}};
+			\begin{scope}[x={(image.south east)},y={(image.north west)}]
+				\node[font=\scriptsize] at (0.19, 1.15) {Хеширање};
+				\node[font=\scriptsize] at (0.54, 1.15) {Интерполација};
+				\node[font=\scriptsize] at (0.69, 1.15) {Конкатенација};
+				\node[font=\scriptsize] at (0.01, 0.505) {$1/N_1$};
+				\node[font=\tiny] at (0.1862, 0.506) {0};
+				\node[font=\tiny] at (0.1862, 0.045) {1};
+				\node[font=\tiny] at (0.333, 0.506) {4};
+				\node[font=\tiny] at (0.333, 0.045) {7};
+				\node[font=\tiny] at (0.236, 0.3475) {6};
+				\node[font=\tiny] at (0.138, 0.3475) {3};
+				\node[font=\tiny] at (0.138, 0.663) {2};
+				\node[font=\tiny] at (0.236, 0.663) {0};
+				\node[font=\scriptsize] at (0.68, 0.10) {$\xi$};
+				\node[font=\tiny] at (0.715, 0.51) {$L \cdot F$};
+				\node[font=\tiny] at (0.703, 0.33) {$E$};
+				\node[font=\scriptsize] at (0.877, 0.88) {$f_\Theta$};
+				\node[font=\scriptsize] at (-0.008, 0.142) {$\mathrm{x}$};
+				\node[font=\scriptsize] at (0.41, 1.02) {$F$};
+				\node[font=\scriptsize] at (0.357, 0.76) {$T$};
+				\node[font=\scriptsize] at (0.26, 1.03) {$1/N_0$};
+				\node[red,font=\tiny] at (0.205, 0.69) {$l=1$};
+				\node[green,font=\tiny] at (0.302, 0.534) {$l=0$};
+				\node[font=\tiny] at (0.385, 0.942) {0};
+				\node[font=\tiny] at (0.385, 0.89) {1};
+				\node[font=\tiny] at (0.385, 0.836) {2};
+				\node[font=\tiny] at (0.385, 0.783) {3};
+				\node[font=\tiny] at (0.385, 0.73) {4};
+				\node[font=\tiny] at (0.385, 0.677) {5};
+				\node[font=\tiny] at (0.385, 0.625) {6};
+				\node[font=\tiny] at (0.385, 0.57) {7};
+			\end{scope}
+		\end{tikzpicture}
+	\end{center}
+	\caption{Илустрација InstantNGP модела}
+	\label{fig-instantngp-pipeline}
+\end{figure}
+
+\begin{figure}[H]
+	\begin{center}
+		\begin{tikzpicture}
+			\node[anchor=south west,inner sep=0] (image) at (0, 0) {\includegraphics[width=\textwidth]{img/nerf_vs_mipnerf.pdf}};
+			\begin{scope}[x={(image.south east)},y={(image.north west)}]
+				\node[font=\small] at (0.2, 0) {NeRF};
+				\node[font=\small] at (0.6, 0) {Mip-NeRF};
+			\end{scope}
+		\end{tikzpicture}
+	\end{center}
+	\caption{Поређење NeRF и Mip-NeRF модела}
+	\label{fig-nerf-vs-mipnerf};
 \end{figure}
 
 \lipsum[1-10]

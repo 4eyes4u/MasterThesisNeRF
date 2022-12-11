@@ -745,6 +745,27 @@ $\gamma : \mathbb{R} \rightarrow \mathbb{R}^{2D}$ и то конкретно
 где је $T_i = \exp\left(-\sum_{j=1}^{i-1}\sigma_j\Delta_j\right)$, парови $(\mathbf{c}_i, \sigma_i)$
 одговарајући у складу са избором $t_i$, а $\Delta_i$ ширина елемента поделе.
 
+Једначине \ref{eqn-volume-rendering-colorimetry} и \ref{eqn-discrete-rendering} се видно разликују по
+начину на који учествује пропусност. Наиме, уколико би Гаусов метод применили директно, појавио би се
+линеаран члан $\sigma_i\Delta_i$. Тај члан је је у апроксимацији замењен експоненцијалним
+$1 - \exp(-\sigma\Delta_i)$. У наставку ћемо објаснити и зашто \cite{volume-rendering}.
+
+Погледајмо како произвољни елемент поделе учествује у апроксимацији. Како узимамо да су на сваком
+елементу поделе боја и пропусност константни, једначину \ref{eqn-volume-rendering-colorimetry} 
+расписујемо у складу са тим
+\begin{equation}
+	\begin{split}
+		\hat{C_i}(\Pi_{\mathbf{r_{c, d}}})
+			& = \int_{t_i}^{t_{i + 1}} T(t)\sigma_i c_i dt \\
+			& = \int_{t_i}^{t_{i + 1}} \sigma_i c_i \exp\left( -\int_{t_n}^{t} \sigma(\mathbf{r_{c, d}}(s)ds) \right)dt \\
+			& = \sigma_i c_i \int_{t_i}^{t_{i + 1}} \exp\left( -\int_{t_n}^{t_i} \sigma(\mathbf{r_{c, d}}(s)ds) \right)
+				\exp\left( -\int_{t_i}^{t_{i + 1}} \sigma_i ds \right) dt \\
+			& = T_i \sigma_i c_i \int_{t_i}^{t_{i + 1}} \exp(-\sigma_i(t - t_i))dt \\
+			& = T_i \sigma_i c_i \frac{\exp(-\sigma_i(t - t_i))}{-\sigma_i} \Biggr|_{t_i}^{t_{i + 1}} \\
+			& = T_i (1 - \exp(-\sigma_i \Delta_i)) c_i.
+	\end{split}
+\end{equation}
+
 \subsection{Обучавање}
 
 Имплементација инспирисана описаним поступком рендеровања је врло неефикасна -- празан простор и прикривени

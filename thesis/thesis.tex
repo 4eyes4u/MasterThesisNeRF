@@ -748,11 +748,11 @@ $\gamma : \mathbb{R} \rightarrow \mathbb{R}^{2D}$ и то конкретно
 Једначине \ref{eqn-volume-rendering-colorimetry} и \ref{eqn-discrete-rendering} се видно разликују по
 начину на који учествује пропусност. Наиме, уколико би Гаусов метод применили директно, појавио би се
 линеаран члан $\sigma_i\Delta_i$. Тај члан је је у апроксимацији замењен експоненцијалним
-$1 - \exp(-\sigma\Delta_i)$. У наставку ћемо објаснити и зашто \cite{volume-rendering}.
+$1 - \exp(-\sigma_i\Delta_i)$. У наставку ћемо објаснити и зашто \cite{volume-rendering}.
 
-Погледајмо како произвољни елемент поделе учествује у апроксимацији. Како узимамо да су на сваком
-елементу поделе боја и пропусност константни, једначину \ref{eqn-volume-rendering-colorimetry} 
-расписујемо у складу са тим
+Како узимамо да су на сваком елементу поделе боја и пропусност константни,
+једначину \ref{eqn-volume-rendering-colorimetry}  расписујемо у складу са тим. Погледајмо како
+произвољни елемент поделе учествује у апроксимацији.
 \begin{equation}
 	\begin{split}
 		\hat{C_i}(\Pi_{\mathbf{r_{c, d}}})
@@ -786,7 +786,7 @@ $1 - \exp(-\sigma\Delta_i)$. У наставку ћемо објаснити и 
 $N_c + N_f$ одбирака на начин описан у једначини \ref{eqn-discrete-rendering}. У свим експериментима се
 за $N_c$ узима 64, а за $N_f$ 128.
 
-Функција губитка у случају NeRF-а је
+Функција губитка која се користи за обучавање NeRF-а је
 \begin{equation}
 	\mathcal{L} = \sum_{\mathbf{r_{c, d}} \in \mathcal{B}}
  	\left(
@@ -951,7 +951,86 @@ $\boldsymbol{\alpha}_{i, j, k}^{K}$.
 на целој слици, већ се слика дели на мање делове, а резултати метрике потом упросече.
 
 Више вредност ове метрике указују на бољу апроксимацију.
+
+\section{Резултати}
+
+	\begin{table}[H]
+		\centering
+		\begin{tabular}{cccc} \toprule
+			{mодел} & {PSNR} & {LPIPS} & {SSIM} \\ \midrule
+			{NeRF} & 34.38  & 0.032 & 0.97 \\ 
+			{mip-NeRF} & 35.80 & 0.026 & 0.98 \\
+			{Instant-NGP} & X & X & X \\ \bottomrule
+		\end{tabular}
+		\caption{Резулати за \textsc{Lego} скуп података}
+		\label{table-lego}
+	\end{table}
+
+	\begin{table}[H]
+		\centering
+		\begin{tabular}{cccc} \toprule
+			{mодел} & {PSNR} & {LPIPS} & {SSIM} \\ \midrule
+			{NeRF} & 30.45  & 0.055 & 0.96 \\ 
+			{mip-NeRF} & 30.58 & 0.052 & 0.96 \\
+			{Instant-NGP} & X & X & X \\ \bottomrule
+		\end{tabular}
+		\caption{Резулати за \textsc{Materials} скуп података}
+		\label{table-materials}
+	\end{table}
+
+	\begin{table}[H]
+		\centering
+		\begin{tabular}{cccc} \toprule
+			{mодел} & {PSNR} & {LPIPS} & {SSIM} \\ \midrule
+			{NeRF} & 25.28  & 0.080 & 0.93 \\ 
+			{mip-NeRF} & 25.52 & 0.079 & 0.93 \\
+			{Instant-NGP} & X & X & X \\ \bottomrule
+		\end{tabular}
+		\caption{Резулати за \textsc{Materials} скуп података}
+		\label{table-drums}
+	\end{table}
+
+	\begin{table}[H]
+		\centering
+		\begin{tabular}{cccc} \toprule
+			{mодел} & {PSNR} & {LPIPS} & {SSIM} \\ \midrule
+			{NeRF} & 34.93  & 0.029 & 0.98 \\ 
+			{mip-NeRF} & 35.20 & 0.028 & 0.98 \\
+			{Instant-NGP} & X & X & X \\ \bottomrule
+		\end{tabular}
+		\caption{Резулати за \textsc{Materials} скуп података}
+		\label{table-chair}
+	\end{table}
+
+	\begin{table}[H]
+		\centering
+		\begin{tabular}{cccc} \toprule
+			{mодел} & {PSNR} & {LPIPS} & {SSIM} \\ \midrule
+			{NeRF} & 29.94  & 0.16 & 0.88 \\ 
+			{mip-NeRF} & 30.52 & 0.15 & 0.88 \\
+			{Instant-NGP} & X & X & X \\ \bottomrule
+		\end{tabular}
+		\caption{Резулати за \textsc{Materials} скуп података}
+		\label{table-ship}
+	\end{table}
+
 \section{Време обучавања}
+
+Дужина трајања обучавања не зависи од скупа података јер су сви модели обучавани тачно одређен број итерација.
+
+	\begin{table}[H]
+		\centering
+		\begin{tabular}{ccc} \toprule
+			{mодел} & {време обучавања} & {број итерација} \\ \midrule
+			{NeRF} & 24h  & 1000000 \\ 
+			{mip-NeRF} & 24h & 1000000 \\
+			{Instant-NGP} & X & X \\ \bottomrule
+		\end{tabular}
+		\caption{Време обучавања за сваки модел}
+		\label{table-duration}
+	\end{table}
+
+
 \section{Квалитет резултата}
 
 \chapter{Закључак}

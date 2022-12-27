@@ -5,9 +5,9 @@
 \usepackage{graphicx}
 \usepackage{multicol}
 \usepackage{booktabs}
+\usepackage{subcaption}
 \usepackage{float}
 \usepackage{tikz}
-\usepackage{tikz-3dplot}
 \usetikzlibrary{calc}
 \usetikzlibrary{calc, arrows.meta, positioning, backgrounds}
 \usetikzlibrary{perspective}
@@ -957,10 +957,10 @@ $\boldsymbol{\alpha}_{i, j, k}^{K}$.
 	\begin{table}[H]
 		\centering
 		\begin{tabular}{cccc} \toprule
-			{mодел} & {PSNR} & {LPIPS} & {SSIM} \\ \midrule
-			{NeRF} & 34.38  & 0.032 & 0.97 \\ 
-			{mip-NeRF} & 35.80 & 0.026 & 0.98 \\
-			{Instant-NGP} & X & X & X \\ \bottomrule
+			{mодел}			& {PSNR $\uparrow$}	& {LPIPS $\downarrow$}	& {SSIM $\uparrow$} \\ \midrule
+			{NeRF}			& 34.38				& 0.032					& 0.973 \\ 
+			{mip-NeRF}		& 35.80				& 0.026					& 0.978 \\
+			{Instant-NGP}	& X					& X						& X \\ \bottomrule
 		\end{tabular}
 		\caption{Резулати за \textsc{Lego} скуп података}
 		\label{table-lego}
@@ -969,10 +969,10 @@ $\boldsymbol{\alpha}_{i, j, k}^{K}$.
 	\begin{table}[H]
 		\centering
 		\begin{tabular}{cccc} \toprule
-			{mодел} & {PSNR} & {LPIPS} & {SSIM} \\ \midrule
-			{NeRF} & 30.45  & 0.055 & 0.96 \\ 
-			{mip-NeRF} & 30.58 & 0.052 & 0.96 \\
-			{Instant-NGP} & X & X & X \\ \bottomrule
+			{mодел}			& {PSNR $\uparrow$} & {LPIPS $\downarrow$}	& {SSIM $\uparrow$} \\ \midrule
+			{NeRF} 			& 30.45 			& 0.055					& 0.956 \\ 
+			{mip-NeRF}		& 30.58 			& 0.052					& 0.958 \\
+			{Instant-NGP}	& X					& X						& X \\ \bottomrule
 		\end{tabular}
 		\caption{Резулати за \textsc{Materials} скуп података}
 		\label{table-materials}
@@ -981,36 +981,36 @@ $\boldsymbol{\alpha}_{i, j, k}^{K}$.
 	\begin{table}[H]
 		\centering
 		\begin{tabular}{cccc} \toprule
-			{mодел} & {PSNR} & {LPIPS} & {SSIM} \\ \midrule
-			{NeRF} & 25.28  & 0.080 & 0.93 \\ 
-			{mip-NeRF} & 25.52 & 0.079 & 0.93 \\
-			{Instant-NGP} & X & X & X \\ \bottomrule
+			{mодел}			& {PSNR $\uparrow$} & {LPIPS $\downarrow$}	& {SSIM $\uparrow$} \\ \midrule
+			{NeRF}			& 25.28				& 0.080 				& 0.929 \\ 
+			{mip-NeRF}		& 25.52				& 0.079					& 0.932 \\
+			{Instant-NGP}	& X					& X						& X \\ \bottomrule
 		\end{tabular}
-		\caption{Резулати за \textsc{Materials} скуп података}
+		\caption{Резулати за \textsc{Drums} скуп података}
 		\label{table-drums}
 	\end{table}
 
 	\begin{table}[H]
 		\centering
 		\begin{tabular}{cccc} \toprule
-			{mодел} & {PSNR} & {LPIPS} & {SSIM} \\ \midrule
-			{NeRF} & 34.93  & 0.029 & 0.98 \\ 
-			{mip-NeRF} & 35.20 & 0.028 & 0.98 \\
-			{Instant-NGP} & X & X & X \\ \bottomrule
+			{mодел} 		& {PSNR $\uparrow$} & {LPIPS $\downarrow$}	& {SSIM $\uparrow$} \\ \midrule
+			{NeRF} 			& 34.93				& 0.029					& 0.979 \\ 
+			{mip-NeRF} 		& 35.20				& 0.028					& 0.981 \\
+			{Instant-NGP}	& X					& X						& X \\ \bottomrule
 		\end{tabular}
-		\caption{Резулати за \textsc{Materials} скуп података}
+		\caption{Резулати за \textsc{Chair} скуп података}
 		\label{table-chair}
 	\end{table}
 
 	\begin{table}[H]
 		\centering
 		\begin{tabular}{cccc} \toprule
-			{mодел} & {PSNR} & {LPIPS} & {SSIM} \\ \midrule
-			{NeRF} & 29.94  & 0.16 & 0.88 \\ 
-			{mip-NeRF} & 30.52 & 0.15 & 0.88 \\
-			{Instant-NGP} & X & X & X \\ \bottomrule
+			{mодел}			& {PSNR $\uparrow$} & {LPIPS $\downarrow$}	& {SSIM $\uparrow$} \\ \midrule
+			{NeRF}			& 29.94				& 0.161					& 0.878 \\ 
+			{mip-NeRF}		& 30.53 			& 0.154					& 0.884 \\
+			{Instant-NGP}	& X					& X						& X \\ \bottomrule
 		\end{tabular}
-		\caption{Резулати за \textsc{Materials} скуп података}
+		\caption{Резулати за \textsc{Ship} скуп података}
 		\label{table-ship}
 	\end{table}
 
@@ -1032,6 +1032,111 @@ $\boldsymbol{\alpha}_{i, j, k}^{K}$.
 
 
 \section{Квалитет резултата}
+
+	\begin{figure}[H]
+		\centering
+		\begin{subfigure}{0.3\textwidth}
+			\centering
+			\includegraphics[scale=0.2]{img/nerf_lego_31.jpg}
+			\caption{NeRF}
+		\end{subfigure}
+		\begin{subfigure}{0.3\textwidth}
+			\centering
+			\includegraphics[scale=0.2]{img/mipnerf_lego_31.jpg}
+			\caption{mip-NeRF}
+		\end{subfigure}
+		\begin{subfigure}{0.3\textwidth}
+			\centering
+			\includegraphics[scale=0.2]{img/mipnerf_lego_31.jpg}
+			\caption{mip-NeRF}
+		\end{subfigure}
+		\caption{Приказ резултата \textsc{Lego} скупа података}
+		\label{fig-lego-results}
+	\end{figure}
+
+	\begin{figure}[H]
+		\centering
+		\begin{subfigure}{0.3\textwidth}
+			\centering
+			\includegraphics[scale=0.2]{img/nerf_materials_36.jpg}
+			\caption{NeRF}
+		\end{subfigure}
+		\begin{subfigure}{0.3\textwidth}
+			\centering
+			\includegraphics[scale=0.2]{img/mipnerf_materials_36.jpg}
+			\caption{mip-NeRF}
+		\end{subfigure}
+		\begin{subfigure}{0.3\textwidth}
+			\centering
+			\includegraphics[scale=0.2]{img/mipnerf_materials_36.jpg}
+			\caption{mip-NeRF}
+		\end{subfigure}
+		\caption{Приказ резултата \textsc{Materials} скупа података}
+		\label{fig-materials-results}
+	\end{figure}
+
+	\begin{figure}[H]
+		\centering
+		\begin{subfigure}{0.3\textwidth}
+			\centering
+			\includegraphics[scale=0.2]{img/nerf_drums_3.jpg}
+			\caption{NeRF}
+		\end{subfigure}
+		\begin{subfigure}{0.3\textwidth}
+			\centering
+			\includegraphics[scale=0.2]{img/mipnerf_drums_3.jpg}
+			\caption{mip-NeRF}
+		\end{subfigure}
+		\begin{subfigure}{0.3\textwidth}
+			\centering
+			\includegraphics[scale=0.2]{img/mipnerf_drums_3.jpg}
+			\caption{mip-NeRF}
+		\end{subfigure}
+		\caption{Приказ резултата \textsc{Drums} скупа података}
+		\label{fig-drums-results}
+	\end{figure}
+
+	\begin{figure}[H]
+		\centering
+		\begin{subfigure}{0.3\textwidth}
+			\centering
+			\includegraphics[scale=0.2]{img/nerf_chair_38.jpg}
+			\caption{NeRF}
+		\end{subfigure}
+		\begin{subfigure}{0.3\textwidth}
+			\centering
+			\includegraphics[scale=0.2]{img/mipnerf_chair_38.jpg}
+			\caption{mip-NeRF}
+		\end{subfigure}
+		\begin{subfigure}{0.3\textwidth}
+			\centering
+			\includegraphics[scale=0.2]{img/mipnerf_chair_38.jpg}
+			\caption{mip-NeRF}
+		\end{subfigure}
+		\caption{Приказ резултата \textsc{Chair} скупа података}
+		\label{fig-chair-results}
+	\end{figure}
+
+	\begin{figure}[H]
+		\centering
+		\begin{subfigure}{0.3\textwidth}
+			\centering
+			\includegraphics[scale=0.2]{img/nerf_ship_38.jpg}
+			\caption{NeRF}
+		\end{subfigure}
+		\begin{subfigure}{0.3\textwidth}
+			\centering
+			\includegraphics[scale=0.2]{img/mipnerf_ship_38.jpg}
+			\caption{mip-NeRF}
+		\end{subfigure}
+		\begin{subfigure}{0.3\textwidth}
+			\centering
+			\includegraphics[scale=0.2]{img/mipnerf_ship_38.jpg}
+			\caption{mip-NeRF}
+		\end{subfigure}
+		\caption{Приказ резултата \textsc{Ship} скупа података}
+		\label{fig-ship-results}
+	\end{figure}
 
 \chapter{Закључак}
 

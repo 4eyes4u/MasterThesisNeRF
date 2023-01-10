@@ -715,11 +715,12 @@ $\gamma : \mathbb{R} \rightarrow \mathbb{R}^{2D}$ и то конкретно
 
 \begin{equation}
 	\gamma(x) = (\sin(2^0\pi x), \cos(2^0 \pi x), ..., \sin(2^{D-1}\pi x), \cos(2^{D-1}\pi x)).
+	\label{eqn-fourier-features}
 \end{equation}
 
 Исто пресликавање се користи за све улазе које MLP добија, с тим што се за положај узима $D=10$, a за поглед $D=4$.
 Овај начин \textit{подизања} у простор веће димензије није случајан и инспирисан је \cite{transformer}, a могуће
-варијације су објашњене у \cite{fourier-coefficients}.
+варијације су објашњене у \cite{fourier-coefficients}. Описани поступак се назива \textit{Фуријеизација}.
 
 \subsection{Рендеровање}
 У основи је једначина \ref{eqn-volume-rendering-colorimetry}. За потребе апроксимације интеграла биће коришћен
@@ -794,9 +795,12 @@ $N_c + N_f$ одбирака на начин описан у једначини 
 	\right)
 \end{equation}
 
-
-
 \section{Mip-NeRF}
+Као што смо могли да видимо у претходној глави, NeRF jе далеко од идеалног теоријског модела и
+показује извесне недостатке. То су постојање два модела који се упоредо обучавају, узорковање
+дуж само једног зрака за сваки пиксел, а као што ћемо видети касније у табели \ref{table-duration},
+обучавање траје данима. Овом архитектуром покушаћемо да превазиђемо или макар ублажимо наведено.
+
 \begin{figure}[H]
 	\begin{center}
 		\begin{tikzpicture}
@@ -810,6 +814,135 @@ $N_c + N_f$ одбирака на начин описан у једначини 
 	\caption{Поређење NeRF и Mip-NeRF модела према \cite{mip-nerf}}
 	\label{fig-nerf-vs-mipnerf}
 \end{figure}
+
+Кренућемо од кључног недостатка -- постојање само једног зрака по пикселу. Природно проширење
+је конусно емитовање зрака. Конус ћемо ограничити двема равнима чиме добијамо зарубљену купу
+која је једнозначно одређена центром $\mathbf{o}$, осом симетрије $\mathbf{d}$ и полупречником
+круга $R$ који је пресек поменуте купе и равни слике. Скуп тачака које припадају зарубљеној купи
+на сегменту параметра $\left[t_0, t_1\right]$ је одређен индикаторском променљивом
+
+\begin{equation}
+	\begin{split}
+		F(\mathbf{x}, \mathbf{o}, \mathbf{d}, R, t_0, t_1) & =
+			I \left(t_0 < \frac{\mathbf{d}^T(\mathbf{x} - \mathbf{o})}{\left\Vert\mathbf{d}\right\Vert^2_2} < t_1 \right) \\
+			& \land
+			\left(
+				\frac{\mathbf{d}^T(\mathbf{x} - \mathbf{o})}
+				{\left\Vert\mathbf{d}\right\Vert_2 \left\Vert \mathbf{x} - \mathbf{o}\right\Vert_2}
+				> \frac{1}{\sqrt{1 + (R / \left\Vert d\right\Vert_2)^2}}
+			\right).
+	\end{split}
+\end{equation}
+
+\subsection{Другачија Фуријеизација}
+Један од, наизглед, не нарочито битних одлика NeRF-а је допринос Фуријеизације улаза на начин
+објашњен у \ref{eqn-fourier-features}. Зато ћемо посебну пажњу посветити управо томе.
+
+Главни циљ је задржати изворну Фуријеизацију. Најједноставнији приступ је одређивање очекиване
+изворне Фуријеизације по свим тачкама које припадају купи зрака. Тако добијамо
+
+\begin{equation}
+	\gamma*(\mathbf{o}, \mathbf{d}, R, t_0, t_1)
+		= \frac{\int\gamma(\mathbf{x})F(\mathbf{x}, \mathbf{o}, \mathbf{d}, R, t_0, t_1)d\mathbf{x}}
+				{\int F(\mathbf{x}, \mathbf{o}, \mathbf{d}, R, t_0, t_1)d\mathbf{x}}.
+\end{equation}
+Међутим, интеграл који се јавља у овој једначини не умемо да израчунамо. Зато ћемо зарубљену купу
+представити нормалном расподелом која нам то омогућава. У ту сврху, потребно је одредити
+очекивање и варијансу функције $F(\mathbf{x}, \cdot)$. То за последицу има да је зарубљена купа
+апроксимирана елипсоидом, а расподела одређена са пет вредности -- $\mathbf{o}$,
+$\mathbf{d}$, $\mu_t$ (очекивано растојање дуж зрака), $\mathbf{\sigma}^2_t$ (варијанса дуж зрака) и
+$\mathbf{\sigma}^2_r$ (варијанса дуж нормале зрака).
+
+У наставку ћемо извести засад непознате вредности параметара $\mu_t$, $\sigma_t$ и $\sigma_r$.
+Посматрајмо зарубљену купу чија је оса симетрије нормална, односно, паралелна са свим осама.
+Употребом сферних координата добијамо параметризацију
+$(x, y, z) = \phi(r, t, \theta) = (rt\cos\theta, rt\sin\theta, t)$ за $\theta \in [0, 2\pi)$,
+$t\geq 0$, $|r| \leq R$. Јакобијан је $rt^2drdtd\theta$.
+
+Запремина зарубљене купе је
+\begin{equation}
+	V = \int_{0}^{2\pi}\int_{t_0}^{t_1}\int_{0}^{R}rt^2drdtd\theta = \pi R \frac{t_1^3 - t_0^3}{3}.
+\end{equation}
+Расподела у којој се тачке узоркују равномерно из зарубљене купе има густину $rt^2/V$, у шта се можемо
+уверити интеграцијом Јакобијана.
+
+Први момент по $t$ је
+\begin{equation}
+	\begin{split}
+		\mathbb{E}(t) & = \frac{1}{V}\int_{0}^{2\pi}\int_{t_0}^{t_1}\int_{0}^{R}t \cdot rt^2drdtd\theta \\
+			& = \frac{1}{V}\pi R^2 \frac{t_1^4 - t_0^4}{4} \\
+			& = \frac{3(t_1^4 - t_0^4)}{4(t_1^3 - t_0^3)}.
+	\end{split}
+\end{equation}
+
+Први момент по $x$ (као и по $y$ због симетрије је)
+\begin{equation}
+	\mathbb{E}(x) = \frac{1}{V}\int_{0}^{2\pi}\int_{t_0}^{t_1}\int_{0}^{R}rt\cos\theta \cdot rt^2drdtd\theta = 0.
+\end{equation}
+
+Други момент по $t$ jе
+\begin{equation}
+	\begin{split}
+		\mathbb{E}(t^2) & = \frac{1}{V}\int_{0}^{2\pi}\int_{t_0}^{t_1}\int_{0}^{R}t^2 \cdot rt^2drdtd\theta \\
+			& = \frac{1}{V}\pi R^3\frac{t_1^5 - t_0^5}{5} \\
+			& = \frac{3(t_1^5 - t_0^5)}{5(t_1^3 - t_0^3)}.
+	\end{split}
+\end{equation}
+
+Други момент по $x$ (као и по $y$ због симетрије) jе
+\begin{equation}
+	\begin{split}
+		\mathbb{E}(x^2) & = \frac{1}{V}\int_{0}^{2\pi}\int_{t_0}^{t_1}\int_{0}^{R}(rt\cos\theta)^2\cdot rt^2drdtd\theta \\
+			& = \frac{1}{V}\frac{R^4}{4}\frac{t_1^5 - t_0^5}{5}\pi \\
+			& = \frac{3R^2(t_1^5 - t_0^5)}{20(t_1^3 - t_0^3)}.
+	\end{split}
+\end{equation}
+
+Када смо израчунали све ове моменте, коначно можемо одредити параметре конусне расподеле који су нам непознати.
+Очекивање дуж зрака $\mu_t$ jе први момент по $t$. Варијансу дуж зрака $\sigma_t^2$ добијамо
+као $\operatorname{Var}(t) = \mathbb{E}(t^2) - \mathbb{E}(t^2)$. И коначно, $\sigma_r^2 = \mathbb{E}(x^2)$.
+
+У претходним изразима се појављују разлике виших степена, што врло често проузрокује нумеричке потешкоће
+када су $t_0$ и $t_1$ блиски. Да то заиста јесте од значаја потврђује чињеница да је апроксимација коју
+спроводимо прецизна једино када је зарубљена купа ниска, односно, када је елипсоид нормалне расподеле пљоснат.
+Зато се уводе смене \text{$t_\mu = (t_0 + t_1)/2$} и $t_\delta = (t_1 - t_0)/2$. Коначно, добијамо
+
+\begin{equation}
+	\begin{split}
+		\mu_t & = t_\mu + \frac{2t_\mu t_\delta^2}{3t_\mu^2 + t_\delta^2} \\
+		\sigma_t^2 & = \frac{t_\delta^2}{3} - \frac{4t_\delta^4(12t_\mu^2 - t_\delta^2)}{15(3t_\mu^2 + t_\delta^2)^2} \\
+		\sigma_r^2 & = R^2 \left(\frac{t_\mu^2}{4} + \frac{5t_\delta^2}{12} - \frac{4t\delta^4}{15(3t_\mu^2 + t_\delta^2)}\right).
+	\end{split}
+\end{equation}
+
+На овај начин смо потпуно одредили нормалну расподелу, али у координатном систему равни слике. Међутим,
+није тешко доћи до трансформације у светски координатни систем
+
+\begin{equation}
+	\begin{split}
+		\mu & = \mathbf{o} + \mu_t\mathbf{d} \\
+		\Sigma & = \sigma_t^2\frac{\mathbf{d}\mathbf{d^T}}{\Vert \mathbf{d}\Vert_2^2} +
+			\sigma_r^2\left(\mathbf{I} - \frac{\mathbf{d}\mathbf{d^T}}{\Vert \mathbf{d}\Vert_2^2}\right).
+	\end{split}
+\end{equation}
+
+У досадашем разматрању смо припремили терен за дефинисање \textit{интегралне Фуријеизације} која се
+прилагођава новоуведеном конусном емитовању зрака. Пре тога ћемо само још другачије записати
+\ref{eqn-fourier-features}
+
+\begin{equation}
+		P =
+		\begin{bmatrix}
+			1 & 0 & 0 & 2 & 0 & 0 & ... & 2^{L-1} & 0 & 0 \\
+			0 & 1 & 0 & 0 & 2 & 0 & ... & 0 & 2^{L-1} & 0 \\
+			0 & 0 & 1 & 0 & 0 & 2 & ... & 0 & 0 & 2^{L-1}
+		\end{bmatrix}^T \text{и }
+		\gamma(\mathbf{x}) =
+		\begin{bmatrix}
+			\sin(P\mathbf{x}) \\
+			\cos(P\mathbf{x})
+		\end{bmatrix}.
+\end{equation}
 
 \section{Ref-NeRF}
 
@@ -1019,8 +1152,8 @@ $\boldsymbol{\alpha}_{i, j, k}^{K}$.
 		\begin{tabular}{cccc} \toprule
 			{mодел} 	& {време обучавања (у сатима)} 	& {број итерација} & {број параметара} \\ \midrule
 			{NeRF} 		& 120 							& 1000000 & 1200000\\ 
-			{mip-NeRF} 	& 138 							& 1000000 & 612000\\
-			{Ref-NeRF} 	& 156 							& 1000000 & 1100000\\ \bottomrule
+			{mip-NeRF} 	& 127 							& 1000000 & 612000\\
+			{Ref-NeRF} 	& 135 							& 1000000 & 1100000\\ \bottomrule
 		\end{tabular}
 		\caption{Време обучавања за сваки модел}
 		\label{table-duration}

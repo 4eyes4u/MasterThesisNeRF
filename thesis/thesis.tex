@@ -845,6 +845,7 @@ $N_c + N_f$ одбирака на начин описан у једначини 
 	\gamma*(\mathbf{o}, \mathbf{d}, R, t_0, t_1)
 		= \frac{\int\gamma(\mathbf{x})F(\mathbf{x}, \mathbf{o}, \mathbf{d}, R, t_0, t_1)d\mathbf{x}}
 				{\int F(\mathbf{x}, \mathbf{o}, \mathbf{d}, R, t_0, t_1)d\mathbf{x}}.
+	\label{eqn-ipe-raw}
 \end{equation}
 Међутим, интеграл који се јавља у овој једначини не умемо да израчунамо. Зато ћемо зарубљену купу
 представити нормалном расподелом која нам то омогућава. У ту сврху, потребно је одредити
@@ -927,7 +928,9 @@ $t\geq 0$, $|r| \leq R$. Јакобијан је $rt^2drdtd\theta$.
 \end{equation}
 
 У досадашем разматрању смо припремили терен за дефинисање \textit{интегралне Фуријеизације} која се
-прилагођава новоуведеном конусном емитовању зрака. Пре тога ћемо само још другачије записати
+прилагођава новоуведеном конусном емитовању зрака. Подсетићемо се идеје још једном -- израчунати очекивану
+Фуријеизацију на елипсоиду нормалне расподеле. Дакле, потребно је пресликати улаз у простор више димензије,
+а потом у том простору израчунати очекивање. Да би се та два корака ускладила, другачије ћемо записати
 \ref{eqn-fourier-features}
 
 \begin{equation}
@@ -943,6 +946,39 @@ $t\geq 0$, $|r| \leq R$. Јакобијан је $rt^2drdtd\theta$.
 			\cos(P\mathbf{x})
 		\end{bmatrix}.
 \end{equation}
+
+Параметри расподеле се мењају у складу са новим простором, тако да добијамо
+$\boldsymbol{\mu}_\gamma = P\boldsymbol{\mu}$. Облик матрице коваријансе следи из њене линеарности.
+Наиме, како је $\operatorname{Cov}(A\mathbf{x}, B\mathbf{y}) = A\operatorname{Cov}(\mathbf{x}, \mathbf{y})B^T$,
+то је $\Sigma_\gamma = P\Sigma P^T$.
+
+Преостаје да се израчуна очекивање у складу са вишедимензионом расподелом. Потребно је и довољно је показати
+понашање очекивања $\gamma(x)$. Прво ћемо показати очекивање у случају једнодимензионе нормалне расподеле, а
+потом и у случају који је нама потребан.
+\begin{equation}
+	\begin{split}
+		\mathbb{E}_{x \sim \mathcal{N}(\mu, \sigma^2)}(\sin x) & = \mathbb{E}(\operatorname{Im}\exp(ix)) \\
+			& = \operatorname{Im}\mathbb{E}(\exp(ix)) \\
+			& = \operatorname{Im}(\phi_{x \sim \mathcal{N}(\mu, \sigma^2)}(1)) \\
+			& = \operatorname{Im}\left(\exp\left(i\mu - \frac{\sigma^2}{2}\right)\right) \\
+			& = \sin(x)\exp\left(-\frac{\sigma^2}{2}\right)
+	\end{split}
+\end{equation}
+Анологно, добијамo $\mathbb{E}_{x \sim \mathcal{N}(\mu, \sigma^2)}(\cos x) = \cos(x)\exp\left(-\sigma^2/2\right)$.
+Уколико уопштимо претходно израчунавање, добијамо
+\begin{equation}
+	\begin{split}
+		\gamma(\boldsymbol{\mu}, \Sigma) & = \mathbb{E}_{x \sim \mathcal{N}(\mu, \sigma^2)}(\gamma(x)) \\
+			& =
+			\begin{bmatrix}
+				\sin(\mu_\gamma) \odot \exp(-(1/2)\operatorname{diag}(\Sigma_\gamma)) \\
+				\cos(\mu_\gamma) \odot \exp(-(1/2)\operatorname{diag}(\Sigma_\gamma))
+			\end{bmatrix},
+	\end{split}
+\end{equation}
+где је са $\odot$ oзначено Адамарово, члан-по-члан множење.
+
+\subsection{Oбучавање}
 
 \section{Ref-NeRF}
 

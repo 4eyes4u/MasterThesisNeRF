@@ -808,6 +808,10 @@ $N_c + N_f$ одбирака на начин описан у једначини 
 			\begin{scope}[x={(image.south east)},y={(image.north west)}]
 				\node[font=\small] at (0.2, 0) {NeRF};
 				\node[font=\small] at (0.6, 0) {Mip-NeRF};
+				\fill[white] (0.352, 0.36) rectangle (0.377, 0.5);
+				\node at (0.365, 0.43) {$R$};
+				\fill[white] (0.7, 0.88) rectangle (0.83, 0.99);
+				\node at (0.765, 0.945) {$\mathbb{E}(\gamma(\mathbf{x}))$};
 			\end{scope}
 		\end{tikzpicture}
 	\end{center}
@@ -842,7 +846,7 @@ $N_c + N_f$ одбирака на начин описан у једначини 
 изворне Фуријеизације по свим тачкама које припадају купи зрака. Тако добијамо
 
 \begin{equation}
-	\gamma*(\mathbf{o}, \mathbf{d}, R, t_0, t_1)
+	\gamma^{*}(\mathbf{o}, \mathbf{d}, R, t_0, t_1)
 		= \frac{\int\gamma(\mathbf{x})F(\mathbf{x}, \mathbf{o}, \mathbf{d}, R, t_0, t_1)d\mathbf{x}}
 				{\int F(\mathbf{x}, \mathbf{o}, \mathbf{d}, R, t_0, t_1)d\mathbf{x}}.
 	\label{eqn-ipe-raw}
@@ -922,7 +926,7 @@ $t\geq 0$, $|r| \leq R$. Јакобијан је $rt^2drdtd\theta$.
 \begin{equation}
 	\begin{split}
 		\mu & = \mathbf{o} + \mu_t\mathbf{d} \\
-		\Sigma & = \sigma_t^2\frac{\mathbf{d}\mathbf{d^T}}{\Vert \mathbf{d}\Vert_2^2} +
+		\Sigma & = \sigma_t^2\left(\mathbf{d}\mathbf{d^T}\right) +
 			\sigma_r^2\left(\mathbf{I} - \frac{\mathbf{d}\mathbf{d^T}}{\Vert \mathbf{d}\Vert_2^2}\right).
 	\end{split}
 \end{equation}
@@ -974,9 +978,19 @@ $\boldsymbol{\mu}_\gamma = P\boldsymbol{\mu}$. Облик матрице ков�
 				\sin(\mu_\gamma) \odot \exp(-(1/2)\operatorname{diag}(\Sigma_\gamma)) \\
 				\cos(\mu_\gamma) \odot \exp(-(1/2)\operatorname{diag}(\Sigma_\gamma))
 			\end{bmatrix},
+		\label{eqn-ipe}
 	\end{split}
 \end{equation}
 где је са $\odot$ oзначено Адамарово, члан-по-члан множење.
+
+Начин на који се изводи множење у запису \ref{eqn-ipe} подразумева употребу само дијагоналних елемената матрице
+$\Sigma_\gamma$. Израчунавање пуне матрице изискује пуно рачунских операција и места, за чим уопште нема потребе.
+С тим у вези, дијагоналне чланове ћемо израчунати директно $\operatorname{diag}(\Sigma_\gamma)
+= \left[\operatorname{diag}(\Sigma), 4\operatorname{diag}(\Sigma), ..., 4^{L-1}\operatorname{diag}(\Sigma)\right]^T$ при чему је
+\begin{equation}
+	\operatorname{diag}(\operatorname{\Sigma}) = \sigma_t^2(\mathbf{d}\odot\mathbf{d}) +
+		\sigma_r^2\left(I - \frac{\mathbf{d} \odot \mathbf{d}}{\Vert\mathbf{d}\Vert_2^2}\right)
+\end{equation}
 
 \subsection{Oбучавање}
 

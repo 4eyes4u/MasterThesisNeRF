@@ -951,8 +951,12 @@ $N_c + N_f$ одбирака на начин описан у једначини 
 				{\left\Vert\mathbf{d}\right\Vert_2 \left\Vert \mathbf{x} - \mathbf{o}\right\Vert_2}
 				> \frac{1}{\sqrt{1 + (R / \left\Vert d\right\Vert_2)^2}}
 			\right).
+		\label{eqn-indicator}
 	\end{split}
 \end{equation}
+\textcolor{red}{Ова индикаторска променљива је Бернулијеве расподеле $\mathcal{B}(p)$. Проблем са овом
+расподелом је што њено очекивање\footnote{За случајну величину $X\sim\mathcal{B}(p)$ важи $\mathbb{E}(X)=p$}
+није познато, односно, не умемо да га израчунамо.}
 
 \subsection{Интегрална фуријеизација}
 \textcolor{red}{Једна} од, наизглед, не нарочито битних одлика NeRF-а је допринос фуријеизације улаза на начин
@@ -967,9 +971,14 @@ $N_c + N_f$ одбирака на начин описан у једначини 
 				{\int F(\mathbf{x}, \mathbf{o}, \mathbf{d}, R, t_0, t_1)d\mathbf{x}}.
 	\label{eqn-ipe-raw}
 \end{equation}
-Међутим, интеграл који се јавља у овој једначини не умемо да израчунамо. Зато ћемо зарубљену купу
+\textcolor{red}{Међутим, интеграл који се јавља у овој једначини се своди на познавање очекивања случајне
+величине из \ref{eqn-indicator}, што није случај}. Зато ћемо зарубљену купу
 \textcolor{red}{апроксимирати} нормалном расподелом која нам то омогућава. \textcolor{red}{Надаље
-претпостављамо да су тачке купе нормално распоређене, а купу мењамо елипсоидом.} Таква нормална расподела
+претпостављамо да су тачке купе нормално распоређене, а купу мењамо елипсоидом. Претпоставићемо још
+да је таква нормална расподела са дијагоналном матрицом коваријансе, пре свега због једноставности
+даљег рачуна. Имајући у виду да је вектор погледа нормалан на базу сваке купе, као и да су базе кругови,
+то је зарубљена купа симетрична око вектора погледа, а самим тим је то и елипсоид. То за последицу има једнакост двеју
+варијанси у равни нормалној на вектор погледа.} Таква нормална расподела
 је одређена са пет вредности -- $\mathbf{o}$, $\mathbf{d}$, $\mu_t$ (очекивано растојање дуж зрака),
 $\mathbf{\sigma}^2_t$ (варијанса дуж зрака) и $\mathbf{\sigma}^2_r$ (варијанса дуж нормале зрака).
 Нама преостаје да одредимо очекивање и варијансу индикатора $F(\mathbf{x}, \cdot)$.
@@ -1045,7 +1054,7 @@ $\mathbf{\sigma}^2_t$ (варијанса дуж зрака) и $\mathbf{\sigma}
 \begin{equation}
 	\begin{split}
 		\mu & = \mathbf{o} + \mu_t\mathbf{d} \\
-		\Sigma & = \sigma_t^2\left(\mathbf{d}\mathbf{d^T}\right) +
+		\Sigma & = \sigma_t^2\left(\frac{\mathbf{d}\mathbf{d^T}}{\Vert \mathbf{d}\Vert_2^2}\right) +
 			\sigma_r^2\left(\mathbf{I} - \frac{\mathbf{d}\mathbf{d^T}}{\Vert \mathbf{d}\Vert_2^2}\right).
 	\end{split}
 \end{equation}
@@ -1109,7 +1118,7 @@ $\Sigma_\gamma$. Израчунавање пуне матрице изискуј
 С тим у вези, дијагоналне чланове ћемо израчунати директно $\operatorname{diag}(\Sigma_\gamma)
 = \left[\operatorname{diag}(\Sigma), 4\operatorname{diag}(\Sigma), ..., 4^{L-1}\operatorname{diag}(\Sigma)\right]^T$ при чему је
 \begin{equation}
-	\operatorname{diag}(\operatorname{\Sigma}) = \sigma_t^2(\mathbf{d}\odot\mathbf{d}) +
+	\operatorname{diag}(\operatorname{\Sigma}) = \sigma_t^2\left(\frac{\mathbf{d}\odot\mathbf{d}}{\Vert\mathbf{d}\Vert_2^2}\right) +
 		\sigma_r^2\left(I - \frac{\mathbf{d} \odot \mathbf{d}}{\Vert\mathbf{d}\Vert_2^2}\right).
 \end{equation}
 

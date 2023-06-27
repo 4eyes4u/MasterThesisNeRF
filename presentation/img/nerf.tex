@@ -1,0 +1,35 @@
+\documentclass[crop, tikz]{standalone}
+\usepackage[utf8]{inputenc}
+\usepackage[english, serbianc]{babel}
+\usepackage{tikz}
+\usetikzlibrary{calc}
+\usetikzlibrary{calc, arrows.meta, positioning, backgrounds}
+\usetikzlibrary{perspective}
+
+\begin{document}
+    \begin{tikzpicture}
+        \node[anchor=south west,inner sep=0] (image) at (0, 0) {\includegraphics[width=\textwidth]{img/nerf-pipeline.pdf}};
+        \begin{scope}[x={(image.south east)},y={(image.north west)}]
+            \node[font=\small] at (0.18, 0.9) {Улаз}; 
+            \node[font=\small] at (0.54, 0.9) {Излаз};
+            \node[font=\small] at (0.771, 0.9) {Рендеровање};
+            \node[font=\small] at (0.94, 0.9) {$\mathcal{L}$};
+            \node[font=\scriptsize] at (0.7, 0.64) {$\sigma$};
+            \node[font=\scriptsize] at (0.7, 0.348) {$\sigma$};
+            \node[font=\footnotesize] at (0.273, 0.756) {$(xyz\theta\phi)$};
+            \node[font=\scriptsize] at (0.44, 0.756) {$(RGB\sigma)$};
+            \node[font=\tiny] at (0.99, 0.67) {2};
+            \node[font=\tiny] at (0.99, 0.54) {2};
+            \node[font=\tiny] at (0.99, 0.38) {2};
+            \node[font=\tiny] at (0.99, 0.25) {2};
+            \node[blue,font=\tiny] at (0.775, 0.67) {Зрак 1};
+            \node[green,font=\tiny] at (0.775, 0.38) {Зрак 2};
+            \node[font=\tiny] at (0.775, 0.18) {Растојање};
+            \node[font=\scriptsize] at (0.957, 0.605) {GT};
+            \node[font=\scriptsize] at (0.957, 0.32) {GT};
+            \node[blue,font=\tiny] at (0.595, 0.695) {Зрак 1};
+            \node[green,font=\tiny] at (0.445, 0.61) {Зрак 2};
+            \node[font=\small] at (0.362, 0.63) {$f_\Theta$};
+        \end{scope}
+    \end{tikzpicture}
+\end{document}

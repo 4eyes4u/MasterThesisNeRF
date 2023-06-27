@@ -1,0 +1,42 @@
+\documentclass[crop, tikz]{standalone}
+\usepackage[utf8]{inputenc}
+\usepackage[english, serbianc]{babel}
+\usepackage{tikz}
+\usetikzlibrary{calc}
+\usetikzlibrary{calc, arrows.meta, positioning, backgrounds}
+\usetikzlibrary{perspective}
+
+\begin{document}
+	\begin{tikzpicture}[style={align=center}]
+		\definecolor{lightblue}{RGB}{235,243,255}
+		\definecolor{lightyellow}{RGB}{255,250,223}
+		\node[anchor=south west,inner sep=0] (image) at (0, 0) {\includegraphics[width=\textwidth]{img/refnerf-architecture.pdf}};
+		\begin{scope}[x={(image.south east)},y={(image.north west)}]
+			\fill[lightblue] (0.09, 0.85) rectangle (0.16, 0.95);
+			\fill[lightblue] (0.09, 0.6) rectangle (0.16, 0.2);
+			\fill[lightblue] (0.54, 0.25) rectangle (0.66, 0.4);
+			\fill[lightyellow] (0.23, 0.16) rectangle (0.335, 0.25);
+			\fill[lightyellow] (0.23, 0.04) rectangle (0.335, 0.13);
+			\fill[lightyellow] (0.405, 0.18) rectangle (0.475, 0.33);
+			\fill[lightyellow] (0.82, 0.48) rectangle (0.9, 0.57);
+			\fill[white] (0.78, 0.75) rectangle (0.925, 0.83);
+			\node[font=\small] at (0.127, 0.9) {Прост. \\ MLP};
+			\node[font=\small] at (0.127, 0.41) {Прост. \\ MLP};
+			\node[font=\small,fill=lightblue] at (0.6, 0.835) {Усмерени \\ MLP};
+			\node[font=\small,fill=lightblue] at (0.601, 0.31) {Усмерени \\ MLP};
+			\node[font=\large] at (0.855, 0.775) {mip-NeRF};
+			\node[font=\large,fill=white] at (0.855, 0.04) {Ref-NeRF};
+			\node[font=\large] at (0.86, 0.52) {\ref{eqn-tone}};
+			\node[font=\large] at (0.443, 0.25) {\ref{eqn-spheric-encoding}};
+			\node[font=\scriptsize] at (0.285, 0.08) {Скаларни \\ производ};
+			\node[font=\large] at (0.285, 0.205) {\ref{eqn-reflection}};
+			\fill[white] (0.2, 0.25) rectangle (0.21, 0.3);
+			\fill[white] (0.345, 0.225) rectangle (0.385, 0.281);
+			\fill[white] (0.01, 0.195) rectangle (0.021, 0.21);
+			\fill[white] (0.01, 0.825) rectangle (0.021, 0.84);
+			
+			\node[font=\large] at (0.37, 0.24) {$\textbf{d}_r$};
+			%				\fill[white] (0.35, 0.255) rectangle (0.37, 0.28);
+		\end{scope}
+	\end{tikzpicture}
+\end{document}
